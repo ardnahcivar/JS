@@ -59,7 +59,7 @@ app.get('/chatroom', function(req, resp) {
         function(err, data) {
             if (err) console.log("error in retrieving chatroom data");
             else {
-                console.log("all data is:" + data);
+                //console.log("all data is:" + data);
                 resp.json(data)
             };
         }).select({
@@ -103,14 +103,10 @@ app.post('/chatroom', function(req, resp) {
                 upsert: true
             }, function(err, data) {
                 if (err) console.log("eRRRRRR");
-<<<<<<< HEAD
                 else {
                     console.log("SUCCCCCCCCCCCCCCCCcc")
                     resp.sendStatus(200);
                 };
-=======
-                else console.log("SUCCCCCCCCCCCCCCCCcc");
->>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
             });
         } else {
             console.log("chatroom created");
@@ -127,10 +123,7 @@ io.on('connection', function(socket) {
         console.log("user is connected:" + data.user);
         socket.join(data.chatroom);
         console.log("chat room created:" + data.chatroom);
-<<<<<<< HEAD
         socket.chatroom_name = data.chatroom;
-=======
->>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
     })
     socket.on('send', function(data) {
         console.log("message received:" + data.message);
@@ -145,12 +138,10 @@ io.on('connection', function(socket) {
         User.find({
             username: socket.user
         }).remove().exec();
-<<<<<<< HEAD
         Chatroom.find({
             chatroom_name: socket.chatroom_name
         }).remove().exec();
-=======
->>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+
     })
 })
 
