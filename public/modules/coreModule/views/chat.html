@@ -1,69 +1,57 @@
 <div class="container">
     <div class="row ">
         <div class="col-sm-4 first">
-            <div class="online-users">
-                <h4>online users</h4>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
-                        <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
-                        <a href="#">{{o}}</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+            <div class="row user-details">
 
-        <div class="col-sm-8 scroller">
-            <div class="col-sm-6">
-                <div ng-repeat="obj in senduserobj track by $index" ng-model-options="{debounce:10}">
-                    <send-msg message="obj" />
+            </div>
+            <div class="row">
+                <div class="online-users">
+                    <h4>online users</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
+                            <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
+                            <a href="#">{{o}}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="col-sm-6">
-                <div ng-repeat="obj in recvuserobj track by $index" ng-model-options="{debounce:10}">
-                    <recv-msg message="obj" />
-                </div>
+        <div class="col-sm-8">
+            <div class="row user-details">
 
             </div>
+            <div class="row scroller">
+                <div class="col-sm-6">
+                    <div ng-repeat="obj in senduserobj track by $index" ng-model-options="{debounce:10}">
+                        <send-msg message="obj" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div ng-repeat="obj in recvuserobj track by $index" ng-model-options="{debounce:10}">
+                        <recv-msg message="obj" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <form name="chatForm" ng-submit="sendMsg()" id="form" novalidate>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="message" ng-model="message" ng-model-options="{updateOn: 'submit'}" ng-required="true" id="message" autocomplete="off" placeholder="Type your message " required>
+                        <!--<input type="submit" class="btn btn-primary" name="msg_btn" id="msg_btn" value="send">-->
+                        <div class="input-group-btn">
+                            <input type="submit" class="btn btn-primary" name="msg_btn" id="msg_btn" value="send"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="row">
-            <form name="chatForm" ng-submit="sendMsg()" id="form" novalidate>
-                <input type="text" name="message" ng-model="message" ng-model-options="{updateOn: 'submit'}" ng-required="true" id="message" autocomplete="off" placeholder="Type your message " required>
-                <input type="submit" class="btn btn-primary" name="msg_btn" id="msg_btn" value="send">
-            </form>
-        </div>
+
     </div>
-
-
 </div>
 
 
 <style media="screen">
-    .message {
-        display: block;
-        position: fixed;
-        bottom: 0;
-    }
-
-    #message {
-        height: 50px;
-        border-radius: 20px;
-    }
-
-    input[type="text"] {
-        font-size: 30px;
-        width: 90%;
-        margin: 0 3px;
-    }
-
-    #msg_btn {
-        width: 60px;
-        height: 50px;
-        margin-bottom: 12px;
-        border-radius: 20px;
-    }
-
-    li {
+li {
         list-style-type: none;
         text-align: center;
     }
@@ -85,8 +73,8 @@
 
     .scroller {
         overflow-y: scroll;
-        height: 500px;
-        max-height: 500px;
+        min-height: 300px;
+        max-height: 450px;
     }
 
     .online-users {
@@ -97,8 +85,31 @@
         border: 1px solid black;
     }
 
-    #form {
-        margin-left: 400px;
+    #message {
+        height: 50px;
+        border-radius: 20px;
     }
+
+    input[type="text"] {
+        font-size: 30px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #msg_btn {
+        width: 60px;
+        height: 50px;
+        margin-bottom: 12px;
+        border-radius: 20px;
+    }
+
+    #form {
+        margin: 0 auto;
+    }
+
+    .user-details {
+        border: 1px solid black;
+        height: 150px;
+    }
+}
 </style>
->
