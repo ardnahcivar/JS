@@ -1,0 +1,176 @@
+<div class="chat">
+    <ul>
+        <li class="other">
+<<<<<<< HEAD
+            <!--earlier image url https://s3.amazonaws.com/uifaces/faces/twitter/toffeenutdesign/128.jpg-->
+            <a class="user" href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/igorgarybaldi/128.jpg" alt="other user image"></a>
+            <div class="date">
+
+                {{message.user}} says {{message.time}}
+=======
+            <a class="user" href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/toffeenutdesign/128.jpg" alt="other user image"></a>
+            <div class="date">
+                {{message.user}} says @{{message.time}}
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+            </div>
+            <div class="message">
+                <div class="hider">
+                    <span>click to read</span>
+                </div>
+                <p>{{message.message}}</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<style>
+    .chat ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .chat ul li {
+        margin: 45px 0 0 0;
+        font-weight: 300;
+    }
+
+    .chat ul li a.user {
+        margin: -30px 0 0 0;
+        display: block;
+        color: #333;
+    }
+
+    .chat ul li a.user img {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background-color: #f3f3f3;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .chat ul li .date {
+        font-size: 14px;
+        color: #a6a6a6;
+    }
+
+    .chat ul li .message {
+        display: block;
+        padding: 10px;
+        position: relative;
+        color: black;
+        font-size: 15px;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .chat ul li .message:before {
+        content: "";
+        position: absolute;
+        border-top: 16px solid rgba(0, 0, 0, 0.15);
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+    }
+
+    .chat ul li .message:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border-top: 17px solid white;
+        border-left: 17px solid transparent;
+        border-right: 17px solid transparent;
+    }
+
+    .chat ul li .message.blur p {
+        -webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+    }
+
+    .chat ul li .message.blur .hider {
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .chat ul li .message p {
+        margin: 0;
+        padding: 0;
+        transition: all 0.1s;
+    }
+
+    .chat ul li .message .hider {
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        margin: -10px;
+        text-align: center;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: all 0.1s;
+    }
+
+    .chat ul li .message .hider span {
+        display: block;
+        position: relative;
+        top: 50%;
+        font-size: 16px;
+        transform: translateY(-50%);
+    }
+
+    .chat ul li.other a.user {
+        float: right;
+    }
+
+    .chat ul li.other .date {
+        float: right;
+        margin: -20px 10px 0 0;
+    }
+
+    .chat ul li.other .message {
+        margin: 0 90px 0 0;
+    }
+
+    .chat ul li.other .message:before {
+        margin: -9px -16px 0 0;
+        right: 0;
+    }
+
+    .chat ul li.other .message:after {
+        content: "";
+        right: 0;
+        margin: 0 -15px 0 0;
+    }
+
+    .chat ul li.you a.user {
+        float: left;
+    }
+
+    .chat ul li.you .date {
+        float: left;
+        margin: -20px 0 0 10px;
+    }
+
+    .chat ul li.you .message {
+        margin: 0 0 0 90px;
+    }
+
+    .chat ul li.you .message:before {
+        margin: -9px 0 0 -16px;
+        left: 0;
+    }
+
+    .chat ul li.you .message:after {
+        content: "";
+        left: 0;
+        margin: 0 0 0 -15px;
+    }
+
+    .chat {
+        margin-top: 10px;
+    }
+</style>

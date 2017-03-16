@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="row ">
+        <div class="col-sm-4 first">
+            <div class="online-users">
+                <h4>online users</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
+<<<<<<< HEAD
+                        <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
+                        <a href="#">{{o}}</a>
+=======
+                        <a href="/chatWith/{{o}}">{{o}}</a>
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                    </li>
+                </ul>
+            </div>
+        </div>
+<<<<<<< HEAD
+        <div class="col-sm-8 scroller">
+            <div class="col-sm-6">
+=======
+        <div class="col-sm-8">
+            <div class="col-sm-6">
+                <!--<div ng-repeat="msg in messages track by $index" ng-model-options="{debounce:10}">
+                    <send-msg message="msg" />
+                </div>-->
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                <div ng-repeat="obj in senduserobj track by $index" ng-model-options="{debounce:10}">
+                    <send-msg message="obj" />
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+<<<<<<< HEAD
+=======
+                <!--<div ng-repeat="recv in recvmessages track by $index " ng-model-options="{debounce:10}">
+                    <recv-msg recvmessage="recv" />
+                </div>-->
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                <div ng-repeat="obj in recvuserobj track by $index" ng-model-options="{debounce:10}">
+                    <recv-msg message="obj" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 message">
+            <form name="chatForm" ng-submit="sendMsg()" id="form" novalidate>
+<<<<<<< HEAD
+                <input type="text" name="message" ng-model="message" ng-model-options="{updateOn: 'submit'}" ng-required="true" id="message" autocomplete="off" placeholder="Type your message " required>
+=======
+                <input type="text" name="message" ng-model="message" ng-model-options="{updateOn: 'submit'}" ng-required="true" id="message" placeholder="enter message here">
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                <input type="submit" class="btn btn-primary" name="msg_btn" id="msg_btn" value="send">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style media="screen">
+    .message {
+        display: block;
+        position: fixed;
+        bottom: 0;
+    }
+
+    #message {
+        height: 50px;
+        border-radius: 20px;
+    }
+
+    input[type="text"] {
+        font-size: 30px;
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    #msg_btn {
+        width: 60px;
+        height: 50px;
+        margin-bottom: 12px;
+        border-radius: 20px;
+<<<<<<< HEAD
+    }
+
+    li {
+        list-style-type: none;
+        text-align: center;
+    }
+
+    .list-group-item {
+        margin-bottom: 10px;
+        border-radius: 20px;
+        width: 130px;
+        background-color: #E3F2FD;
+    }
+
+    .list-group-item:first-child {
+        border-radius: 20px;
+    }
+
+    .list-group-item:last-child {
+        border-radius: 20px;
+    }
+
+    .scroller {
+        overflow-y: scroll;
+        height: 500px;
+        max-height: 500px;
+=======
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+    }
+
+    .online-users {}
+</style>
+}
+</style>
+e>

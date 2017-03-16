@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+<<<<<<< HEAD
+        <div class="col-sm-4">
+            <h4>available chatrooms</h4>
+            <div>
+                <ul class="list-group">
+=======
+        <div class="col-md-4">
+            <h4>available chatrooms</h4>
+            <div>
+                <ul class="list-group">
+                    <!--
+                    <li class="list-group-item" ng-repeat="name in logged_users">
+                        <a href="/chatWith/{{name.username}}">{{name.username}}</a>
+                    </li>-->
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                    <li class="list-group-item" ng-repeat="room in chatroomlist">
+                        <a href="/chatWith/{{room.chatroom_name}}">{{room.chatroom_name}}</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+<<<<<<< HEAD
+        <div class="col-sm-8">
+            <h4>create  chatroom or enter available chatroom </h4>
+            <form class="form-horizontal login_form" ng-submit="setChatroom()" name="login">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="chat_room" ng-model="chat_room" placeholder="enter room here" required>
+                    <input type="submit" class="btn btn-primary" name="sb_btn" id="sb_btn" value="CONNECT">
+=======
+        <div class="col-md-8">
+            <h4>create  chatroom</h4>
+            <form class="form-horizontal login_form" ng-submit="setChatroom()" name="login">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="chat_room" ng-model="chat_room" placeholder="enter room here" required>
+                    <input type="submit" class="btn btn-primary" name="sb_btn" id="sb_btn" value="CHAT">
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+<style media="screen">
+    li {
+        list-style-type: none;
+        text-align: center;
+    }
+
+    .list-group-item {
+        margin-bottom: 10px;
+<<<<<<< HEAD
+        border-radius: 20px;
+        width: 130px;
+    }
+
+    .list-group-item:first-child {
+        border-radius: 20px;
+    }
+
+    .list-group-item:last-child {
+        border-radius: 20px;
+=======
+>>>>>>> 81902e5e99bcf67924d99d0cea924f33e7648448
+    }
+</style>
