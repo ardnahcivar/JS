@@ -120,16 +120,18 @@ app.post('/chatroom', function(req, resp) {
     })
 })
 
-app.get('/allMessages/', function(req, resp) {
-    var chatroom_name = req.body.chatroom_name;
+app.get('/allMessages/:chatroom_name', function(req, resp) {
+    var room = req.params.chatroom_name;
+    //room = room.substring(0, room.length)
+    console.log("chatroom_name in messages is:" + room);
     Chatroom.find({
-        'chatroom_name': chatroom_name
+        chatroom_name: room
     }, 'messages', function(err, data) {
-        if (err) console.log("ERROR in getting all messages");
+        if (err) console.log("error in retrieving specific chatroom data");
         else {
-            console.log("got all messages successfully");
-            resp.json(data);
-        }
+            console.log("uesssdsds" + data);
+            resp.json(data)
+        };
     }).select({
         '_id': 0
     })
@@ -190,14 +192,14 @@ io.on('connection', function(socket) {
     })
     socket.on('disconnect', function() {
         console.log(socket.user + " is disconnected");
-
-        User.find({
-            username: socket.user
-        }).remove().exec();
-        Chatroom.find({
-            chatroom_name: socket.chatroom_name
-        }).remove().exec();
-
+        /*
+                User.find({
+                    username: socket.user
+                }).remove().exec();
+                Chatroom.find({
+                    chatroom_name: socket.chatroom_name
+                }).remove().exec();
+                */
     })
 })
 

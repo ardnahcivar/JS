@@ -10,13 +10,16 @@ angular.module('chatApp.core.controller').controller('chat-controller', ['$scope
             console.log("mmmmmmmmmmmmmmmmmm" + data);
             $scope.online = data;
         })
-        /*    $scope.messages = [];
-            $scope.recvmessages = [];*/
+        /*    $scope.messages = [];*/
+        $scope.recvmessages = [];
         $scope.senduserobj = [];
         $scope.recvuserobj = [];
 
         socket.on('connect', function() {
-            messages.test()
+            $http.get('/allMessages/' + $scope.chatWith).success(function(data) {
+                console.log(data);
+
+            })
             socket.emit('chatroom', {
                 chatroom: $rootScope.chatroom,
                 user: $rootScope.username
@@ -37,6 +40,8 @@ angular.module('chatApp.core.controller').controller('chat-controller', ['$scope
                 message: $scope.message,
                 time: new Date().toLocaleTimeString()
             })
+            console.log("send usre object is");
+            console.log($scope.senduserobj[0].message);
             $scope.message = "";
         }
         socket.on('recv', function(data) {
