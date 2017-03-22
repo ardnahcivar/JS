@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row ">
         <div class="col-sm-4 first">
-            <div class="row user-details">
-
+            <div class="row user-header">
+                <user-header user="user">
             </div>
             <div class="row">
                 <div class="online-users">
@@ -22,16 +22,17 @@
 
             </div>
             <div class="row scroller">
-                <div class="col-sm-6">
-                    <div ng-repeat="obj in senduserobj track by $index" ng-model-options="{debounce:10}">
-                        <send-msg message="obj" />
+                <div class="col-sm-12">
+                    <div ng-repeat="obj in senduserobj track by $index">
+                        <send-msg message="obj">
                     </div>
                 </div>
+                <!--
                 <div class="col-sm-6">
-                    <div ng-repeat="obj in recvuserobj track by $index" ng-model-options="{debounce:10}">
-                        <recv-msg message="obj" />
+                    <div ng-repeat="obj in recvuserobj track by $index">
+                        <recv-msg message="obj">
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <form name="chatForm" ng-submit="sendMsg()" id="form" novalidate>
@@ -51,7 +52,7 @@
 
 
 <style media="screen">
-li {
+    li {
         list-style-type: none;
         text-align: center;
     }
@@ -111,5 +112,9 @@ li {
         border: 1px solid black;
         height: 150px;
     }
-}
+
+    .user-head {
+        border: 1px solid black;
+        height: 100px;
+    }
 </style>

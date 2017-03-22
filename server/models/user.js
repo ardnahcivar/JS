@@ -8,6 +8,10 @@ var userSchema = Schema({
         type: String,
         required: true,
         unique: true
+    },
+    user_img: {
+        data: Buffer,
+        contentType: String
     }
 });
 var User = db.model('User', userSchema);

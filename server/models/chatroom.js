@@ -9,7 +9,8 @@ var chatroomSchema = Schema({
         required: true,
         unique: true
     },
-    users:[]
+    users: [],
+    messages: []
 });
 var Chatroom = db.model('Chatroom', chatroomSchema);
 module.exports = Chatroom;

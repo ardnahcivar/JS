@@ -9,4 +9,22 @@ var getAllUsers = function() {
             return data;
         });
 }
+
+var setImage = function(username, image) {
+    User.update({
+        'username': username
+    }, {
+        $set: {
+            user_img: image
+        }
+    }, {
+        upsert: true;
+    }, function(err, data) {
+        if (err) console.log("ERROR in image update");
+        else {
+            console.log("successfully updated image ");
+        }
+    })
+}
 module.exports = getAllUsers;
+module.exports = setImage;

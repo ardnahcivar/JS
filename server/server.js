@@ -3,14 +3,19 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var express = require('express')
 var bodyParser = require('body-parser')
+var multer = require('multer')
 
-var messageRecv;
+
 app.use(bodyParser.json())
 app.use(express.static('../public'));
 app.use(express.static('/models'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+var uploads = multer({
+    dest: './uploads'
+})
 
 var User = require('./models/user.js');
 var Chatroom = require('./models/chatroom.js');
@@ -115,6 +120,36 @@ app.post('/chatroom', function(req, resp) {
     })
 })
 
+app.get('/allMessages/', function(req, resp) {
+    var chatroom_name = req.body.chatroom_name;
+    Chatroom.find({
+        'chatroom_name': chatroom_name
+    }, 'messages', function(err, data) {
+        if (err) console.log("ERROR in getting all messages");
+        else {
+            console.log("got all messages successfully");
+            resp.json(data);
+        }
+    }).select({
+        '_id': 0
+    })
+})
+
+/*NOT WORKING
+app.post('/changeprofile', uploads.single('username'), function(req, resp) {
+    console.log("RECEIVED FILE ");
+    console.log("FILE IS:" + req.username);
+    //  setImage()
+    resp.sendStatus(200);
+})
+
+app.post('/changeprofile', function(req, resp) {
+    console.log("RECEIVED FILE ");
+    console.log("FILE IS:" + );
+    //  setImage()
+    resp.sendStatus(200);
+})
+*/
 io.on('connection', function(socket) {
     socket.on('chatroom', function(data) {
         socket.user = data.user;
@@ -128,6 +163,26 @@ io.on('connection', function(socket) {
     socket.on('send', function(data) {
         console.log("message received:" + data.message);
         console.log("sending msg to room:" + data.chatroom);
+
+        Chatroom.update({
+            'chatroom_name': data.chatroom
+        }, {
+            $addToSet: {
+                'messages': {
+                    'message': data.message,
+                    'user': data.user,
+                    'time': new Date().toLocaleTimeString()
+                }
+            }
+        }, {
+            upsert: true
+        }, function(err, data) {
+            if (err) console.log("message storing operation failed");
+            else {
+                console.log("message storing success");
+            }
+        })
+
         socket.broadcast.to(data.chatroom).emit('recv', {
             message: data.message,
             user: data.user
@@ -135,6 +190,7 @@ io.on('connection', function(socket) {
     })
     socket.on('disconnect', function() {
         console.log(socket.user + " is disconnected");
+
         User.find({
             username: socket.user
         }).remove().exec();

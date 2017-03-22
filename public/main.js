@@ -1,5 +1,5 @@
 angular.module('chatApp', ['ngRoute', 'chatApp.login.controller', 'chatApp.login.services',
-        'chatApp.core.controller'
+        'chatApp.core.controller', 'chatApp.core.directives', 'chatApp.core.services'
     ])
     .run(function() {
         console.log("loaded with dependency");
@@ -18,6 +18,10 @@ angular.module('chatApp').config(['$routeProvider', '$locationProvider', functio
         .when('/chatWith/:username', {
             templateUrl: '/modules/coreModule/views/chat.html',
             controller: 'chat-controller'
+        })
+        .when('/changeprofile', {
+            templateUrl: '/modules/coreModule/views/changeprofile.html',
+            controller: 'changeprofile-controller'
         })
         .otherwise({
             redirectTo: '/home'
