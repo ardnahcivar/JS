@@ -33,6 +33,16 @@ angular.module('chatApp.core.directives').directive('userHeader', [function() {
 }])
 
 
+angular.module('chatApp.core.directives').directive('userDetails', [function() {
+    return {
+        restrict: 'E',
+        scope: {
+            details: '=details'
+        },
+        templateUrl: 'modules/coreModule/views/user_details.html'
+    }
+}])
+
 angular.module('chatApp.core.directives').directive('fileModel', ['$parse', function($parse) {
     return {
         restrict: 'A',

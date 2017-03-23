@@ -23,6 +23,10 @@ angular.module('chatApp').config(['$routeProvider', '$locationProvider', functio
             templateUrl: '/modules/coreModule/views/changeprofile.html',
             controller: 'changeprofile-controller'
         })
+        .when('/oneTo/:second_user', {
+            templateUrl: '/modules/coreModule/views/singlechat.html',
+            controller: 'singlechat-controller'
+        })
         .otherwise({
             redirectTo: '/home'
         });

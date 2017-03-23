@@ -5,10 +5,10 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var multer = require('multer')
 
-
 app.use(bodyParser.json())
 app.use(express.static('../public'));
 app.use(express.static('/models'));
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -19,6 +19,7 @@ var uploads = multer({
 
 var User = require('./models/user.js');
 var Chatroom = require('./models/chatroom.js');
+var queries = require('./queries/allQueryies.js')
 
 
 app.get('/', function(req, resp) {
@@ -153,15 +154,24 @@ app.post('/changeprofile', function(req, resp) {
 })
 */
 io.on('connection', function(socket) {
+    console.log("SOCKET GOT CONNECTED");
+
     socket.on('chatroom', function(data) {
         socket.user = data.user;
         //created a property on socket object
+        queries.getId(socket.user, function(data) {
+            socket.join(data[0]._id);
+            console.log(socket.user + "joined:" + data[0]._id + "socket");
+        });
+
         console.log("username on the socket is:" + socket.user);
         console.log("user is connected:" + data.user);
+
         socket.join(data.chatroom);
         console.log("chat room created:" + data.chatroom);
         socket.chatroom_name = data.chatroom;
     })
+
     socket.on('send', function(data) {
         console.log("message received:" + data.message);
         console.log("sending msg to room:" + data.chatroom);
@@ -182,6 +192,7 @@ io.on('connection', function(socket) {
             if (err) console.log("message storing operation failed");
             else {
                 console.log("message storing success");
+
             }
         })
 
@@ -190,16 +201,28 @@ io.on('connection', function(socket) {
             user: data.user
         })
     })
+
+    socket.on('isend', function(data) {
+        console.log("got a message in INDIVIDUAL:" + data.message);
+        queries.getId(data.user, function(idobj) {
+            console.log("sending to:" + idobj[0]._id);
+
+            socket.broadcast.to(idobj[0]._id).emit('irecv', {
+                message: data.message,
+                user: data.user
+            })
+        });
+    })
+
     socket.on('disconnect', function() {
         console.log(socket.user + " is disconnected");
-        /*
-                User.find({
-                    username: socket.user
-                }).remove().exec();
-                Chatroom.find({
-                    chatroom_name: socket.chatroom_name
-                }).remove().exec();
-                */
+        /*User.find({
+            username: socket.user
+        }).remove().exec();
+        Chatroom.find({
+            chatroom_name: socket.chatroom_name
+        }).remove().exec();
+        */
     })
 })
 

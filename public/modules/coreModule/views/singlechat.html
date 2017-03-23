@@ -1,29 +1,19 @@
 <div class="container">
+    <h3>in single chat</h3>
     <div class="row ">
         <div class="col-sm-4 first">
             <div class="row user-header">
                 <user-header user="user">
             </div>
-            <div class="row">
-                <div class="online-users">
-                    <h4>online users</h4>
-                    <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
-                            <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
-                            <a href="/oneTo/{{o}}">{{o}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="col-sm-8">
             <div class="row user-details">
-
+                <user-details>
             </div>
             <div class="row scroller">
                 <div class="col-sm-12">
-                    <div ng-repeat="obj in senduserobj track by $index">
+                    <div ng-repeat="obj in isendmessageobj track by $index">
                         <send-msg message="obj">
                     </div>
                 </div>
@@ -35,7 +25,7 @@
                 </div>-->
             </div>
             <div class="row">
-                <form name="chatForm" ng-submit="sendMsg()" id="form" novalidate>
+                <form name="chatForm" ng-submit="isendMsg()" id="form" novalidate>
                     <div class="input-group">
                         <input type="text" class="form-control" name="message" ng-model="message" ng-model-options="{updateOn: 'submit'}" ng-required="true" id="message" autocomplete="off" placeholder="Type your message " required>
                         <!--<input type="submit" class="btn btn-primary" name="msg_btn" id="msg_btn" value="send">-->
@@ -110,7 +100,7 @@
 
     .user-details {
         border: 1px solid black;
-        height: 150px;
+        height: 100px;
     }
 
     .user-head {
