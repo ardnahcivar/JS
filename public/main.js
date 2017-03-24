@@ -1,5 +1,5 @@
 angular.module('chatApp', ['ngRoute', 'chatApp.login.controller', 'chatApp.login.services',
-        'chatApp.core.controller', 'chatApp.core.directives', 'chatApp.core.services'
+        'chatApp.core.controller', 'chatApp.core.services', 'chatApp.core.directives'
     ])
     .run(function() {
         console.log("loaded with dependency");

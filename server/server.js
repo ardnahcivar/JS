@@ -45,6 +45,18 @@ app.post('/dashboard/', function(req, resp) {
 
 })
 
+app.get('/users', function(req, resp) {
+    User.find({}, 'username', function(err, data) {
+        if (err) console.log("ERROR in getting all Users");
+        else {
+            console.log("successfully got all users");
+            resp.json(data);
+        }
+    }).select({
+        '_id': 0
+    })
+})
+
 app.get('/dashboard', function(req, resp) {
     User.find({}, {
             "username": 1,
@@ -56,24 +68,19 @@ app.get('/dashboard', function(req, resp) {
         });
 })
 
-app.post('/sendMsg/:msg', function(req, resp) {
-    var message = req.body.message;
-})
 
 app.get('/chatroom', function(req, resp) {
-    Chatroom.find({},
-        function(err, data) {
-            if (err) console.log("error in retrieving chatroom data");
-            else {
-                //console.log("all data is:" + data);
-                resp.json(data)
-            };
-        }).select({
-        'chatroom_name': 1,
-        '_id': 0,
-        'users': 1
-    });
+    Chatroom.find({}, 'chatroom_name', function(err, data) {
+        if (err) console.log("error in retrieving chatroom data");
+        else {
+            //console.log("all data is:" + data);
+            resp.json(data)
+        };
+    }).select({
+        '_id': 0
+    })
 })
+
 app.get('/chatroom/:chatroom_name', function(req, resp) {
     var roomname = req.params.chatroom_name;
     console.log("roomnameis:" + roomname);

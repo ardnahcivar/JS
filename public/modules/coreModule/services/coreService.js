@@ -1,7 +1,7 @@
 angular.module('chatApp.core.services', []);
 
-angular.module('chatApp.core.services').service('fileUpload', ['$rootScope', '$http', '$location',
-    function($rootScope, $http, $location) {
+angular.module('chatApp.core.services').service('fileUpload', ['$http', '$location',
+    function($http, $location) {
         this.uploadFileToUrl = function(file, url) {
             var fileData = new FormData();
             fileData.append('file', file);
@@ -25,10 +25,10 @@ angular.module('chatApp.core.services').service('fileUpload', ['$rootScope', '$h
                 })
         }
     }
-])
+]);
 
-angular.module('chatApp.core.services').service('getMessages', ['$rootScope', '$scope', '$http',
-    function($rootScope, $scope, $http) {
+angular.module('chatApp.core.services').service('getMessages', ['$http',
+    function($http) {
         var fileData = new FormData();
         fileData.append('file', file);
         fileData.append('username', $rootScope.username)
@@ -50,4 +50,35 @@ angular.module('chatApp.core.services').service('getMessages', ['$rootScope', '$
                 console.log("ERROR in uploading file");
             })
     }
-])
+]);
+
+angular.module('chatApp.core.services').factory('getAllData', ['$http',
+    function($http) {
+        return {
+            getAllChatgroups: function(cb) {
+                $http.get('/chatroom').success(function(data) {
+                        cb(data);
+                    })
+                    .error(function(err) {
+                        console.log("ERROR in getting all chatrooms");
+                    })
+            },
+            getAllUsers: function(cb) {
+                $http.get('/users').success(function(data) {
+                        cb(data);
+                    })
+                    .error(function(err) {
+                        console.log("ERROR in getting all users");
+                    });
+            },
+            getIAllMessages: function(username, cb) {
+                $http.get('/individual/:username').success(function(data) {
+                        cb(data)
+                    })
+                    .error(function(err) {
+                        console.log("ERROR in getting INDIVIDUAL messsages");
+                    })
+            }
+        }
+    }
+]);

@@ -10,7 +10,6 @@ angular.module('chatApp.login.controller').controller('login-controller', ['$sco
                 login_service.toDatabase($scope.username);
             }
             $location.path('/dashboard/' + $scope.username)
-
         }
     }
 ]);

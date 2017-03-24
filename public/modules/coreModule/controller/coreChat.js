@@ -1,8 +1,9 @@
 angular.module('chatApp.core.controller', []);
 
-angular.module('chatApp.core.controller').controller('chat-controller', ['$scope', '$http', '$rootScope', '$location', '$routeParams', 'socket',
 
-    function($scope, $http, $rootScope, $location, $routeParams, socket) {
+angular.module('chatApp.core.controller').controller('chat-controller', ['$scope', '$http', '$rootScope', '$location', '$routeParams', 'socket', 'getAllData',
+
+    function($scope, $http, $rootScope, $location, $routeParams, socket, getAllData) {
         $scope.user = $rootScope.username;
         $scope.chatWith = $routeParams.username;
         console.log("chatwith" + $scope.chatWith);
@@ -10,6 +11,14 @@ angular.module('chatApp.core.controller').controller('chat-controller', ['$scope
             console.log("mmmmmmmmmmmmmmmmmm" + data);
             $scope.online = data;
         })
+
+        getAllData.getAllChatgroups(function(data) {
+            $scope.chatgroups = data;
+            console.log("ALLLLLLLLLLLLLLLLLL");
+            console.log(data.chatroom_name);
+
+        })
+
         /*    $scope.messages = [];*/
         $scope.recvmessages = [];
         $scope.senduserobj = [];
