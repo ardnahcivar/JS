@@ -5,7 +5,7 @@
           var nameObj = {
               username: name
           };
-          $http.post('/dashboard/', nameObj)
+          $http.post('/users', nameObj)
       }
   }]);
 

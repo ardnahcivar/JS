@@ -1,25 +1,31 @@
 angular.module('chatApp.login.controller', []);
 
 
-angular.module('chatApp.login.controller').controller('login-controller', ['$scope', '$http', '$rootScope', '$location', 'login_service',
-    function($scope, $http, $rootScope, $location, login_service) {
+angular.module('chatApp.login.controller').controller('login-controller', ['$scope', '$http', '$rootScope', '$location', '$state', 'login_service',
+    function($scope, $http, $rootScope, $location, $state, login_service) {
         $scope.submitForm = function() {
             if ($scope.username) {
+                $rootScope.chatWith = "";
                 $rootScope.username = $scope.username;
                 console.log("username is" + $scope.username);
                 login_service.toDatabase($scope.username);
             }
             $location.path('/dashboard/' + $scope.username)
+            //$state.go('dashboard')
         }
     }
 ]);
 
 
-angular.module('chatApp.login.controller').controller('loggedinUsers-controller', ['$scope', '$rootScope', '$http', '$interval', '$location',
-    function($scope, $rootScope, $http, $interval, $location) {
-        $http.get('/chatroom').success(function(data) {
-            console.log("chatroom list is:" + data);
-            $rootScope.chatroomlist = data;
+angular.module('chatApp.login.controller').controller('loggedinUsers-controller', ['$scope', '$rootScope', '$http', '$interval', '$location', '$state', 'getAllData',
+    function($scope, $rootScope, $http, $interval, $location, $state, getAllData) {
+        $scope.$state = $state;
+        $scope.me = "rarar"
+
+        getAllData.getAllChatgroups(function(data) {
+            $rootScope.chatgroups = data;
+            console.log("ALLLLLLLLLLLLLLLLLL");
+            console.log(data.chatroom_name);
         })
 
         $scope.setChatroom = function() {
@@ -30,24 +36,12 @@ angular.module('chatApp.login.controller').controller('loggedinUsers-controller'
                 user: $rootScope.username
             };
             $http.post('/chatroom', chatRoom);
-            $http.get('/chatroom').success(function(data) {
-                console.log("chatroom list is:" + data);
-                $rootScope.chatroomlist = data;
+            getAllData.getAllChatgroups(function(data) {
+                $rootScope.chatgroups = data;
+                console.log("ALLLLLLLLLLLLLLLLLL");
+                console.log(data.chatroom_name);
             })
         }
-
-
-        /*$rootScope.$watch(function() {
-            return $rootScope.chatroomlist;
-        }, function() {
-            console.log($rootScope.chatroomlist);
-            console.log("rootScope variable got changed")
-            $http.get('/chatroom').success(function(data) {
-                console.log("chatroom list is:" + data);
-                $rootScope.chatroomlist = data;
-            });
-        });
-        */
         var inter = $interval(function() {
             if ($location.path().includes('/dashboard')) {
                 $http.get('/chatroom').success(function(data) {

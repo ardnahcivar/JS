@@ -26,7 +26,7 @@ app.get('/', function(req, resp) {
     resp.sendFile('../public / index.html');
 })
 
-app.post('/dashboard/', function(req, resp) {
+app.post('/users', function(req, resp) {
     var name = req.body.username;
     console.log(req.body.username);
     var user = new User({
@@ -174,22 +174,27 @@ io.on('connection', function(socket) {
         console.log("username on the socket is:" + socket.user);
         console.log("user is connected:" + data.user);
 
-        socket.join(data.chatroom);
-        console.log("chat room created:" + data.chatroom);
-        socket.chatroom_name = data.chatroom;
+        /*    socket.join(data.chatroom);
+            console.log("chat room created:" + data.chatroom);
+            socket.chatroom_name = data.chatroom;*/
+    })
+
+    socket.on('init-chatgroup', function(data) {
+        socket.join(data.chatgroup);
+        console.log("chat group initialized");
     })
 
     socket.on('send', function(data) {
         console.log("message received:" + data.message);
-        console.log("sending msg to room:" + data.chatroom);
+        console.log("sending msg to room:" + data.to);
 
         Chatroom.update({
-            'chatroom_name': data.chatroom
+            'chatroom_name': data.to
         }, {
             $addToSet: {
                 'messages': {
                     'message': data.message,
-                    'user': data.user,
+                    'user': data.from,
                     'time': new Date().toLocaleTimeString()
                 }
             }
@@ -203,20 +208,20 @@ io.on('connection', function(socket) {
             }
         })
 
-        socket.broadcast.to(data.chatroom).emit('recv', {
+        socket.broadcast.to(data.to).emit('recv', {
             message: data.message,
-            user: data.user
+            user: data.from
         })
     })
 
     socket.on('isend', function(data) {
         console.log("got a message in INDIVIDUAL:" + data.message);
-        queries.getId(data.user, function(idobj) {
+        queries.getId(data.to, function(idobj) {
             console.log("sending to:" + idobj[0]._id);
 
             socket.broadcast.to(idobj[0]._id).emit('irecv', {
                 message: data.message,
-                user: data.user
+                user: data.from
             })
         });
     })

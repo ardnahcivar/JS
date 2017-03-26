@@ -10,15 +10,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
 </head>
 
 
 <body>
     <base href="/">
-    <div ng-view>
+    <!--<div ng-view>
+    </div>-->
+    <div ui-view>
 
     </div>
-
     <script src="modules/loginModule/services/insertUserService.js" charset="utf-8"></script>
     <script src="modules/loginModule/controller/insertUser.js" charset="utf-8"></script>
     <script src="modules/coreModule/services/coreService.js" charset="utf-8"></script>

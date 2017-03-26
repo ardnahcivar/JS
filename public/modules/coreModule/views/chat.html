@@ -8,32 +8,36 @@
                 <div class="online-users">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a data-toggle="tab" href="#users">users</a>
+                            <a data-toggle="tab" data-target="#users">users</a>
+                            <!--<a data-toggle="tab"><button type="button" class="btn btn-primary" name="button" data-target="#users"></button></a>-->
                         </li>
                         <li>
-                            <a data-toggle="tab" href="#chatrooms">chatrooms</a>
+                            <a data-toggle="tab" data-target="#chatrooms">chatrooms</a>
+                            <!--<a data-toggle="tab"><button type="button" class="btn btn-primary" name="button" data-target="#chatrooms"></button></a>-->
                         </li>
                     </ul>
-
                     <div class="tab-content scroller">
                         <div id="users" class="tab-pane fade in active">
                             <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
-                                    <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
-                                    <a href="/oneTo/{{o}}">{{o}}</a>
+                                <li class="list-group-item users" ng-repeat="user in users track by $index">
+                                    <!--<a href="/chatWith/{{o}}">{{o}}</a>
+                                    <a href="/oneTo/{{user.username}}">{{user.username}}</a>-->
+                                    <a ui-sref=".header-details({username:'{{user.username}}'})">{{user.username}}</a>
                                 </li>
                             </ul>
                         </div>
                         <div id="chatrooms" class="tab-pane fade">
-                            <h3>chatgroups</h3>
                             <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="o in chatgroups track by $index">
-                                    <!--<a href="/chatWith/{{o}}">{{o}}</a>-->
-                                    <a href="/oneTo/{{o}}">{{o.chatroom_name}}</a>
+                                <li class="list-group-item users" ng-repeat="chatgroup in chatgroups track by $index">
+                                    <!--<a href="/chatWith/{{o}}">{{o}}</a>
+                                    <a href="/oneTo/{{o}}">{{o.chatroom_name}}</a>-->
+                                    <a ui-sref=".header-details({username:'{{chatgroup.chatroom_name+'chatgroup'}}'})">{{chatgroup.chatroom_name}}</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <a ui-sref=".list"  class="btn btn-primary" id="create_chatroom_btn">Create Chatroom</a>
+
                     <!--
                     <ul class="list-group">
                         <li class="list-group-item" ng-repeat="o in online[0].users track by $index">
@@ -47,13 +51,23 @@
         </div>
 
         <div class="col-sm-10">
-            <div class="row user-details">
+            <div class="row other-user-details">
+                <div ui-view="mainview.header-details">
 
+                </div>
             </div>
             <div class="row scroller">
                 <div class="col-sm-12">
-                    <div ng-repeat="obj in senduserobj track by $index">
-                        <send-msg message="obj">
+                  <div ui-view="mainview.list">
+
+                  </div>
+                    <div ng-repeat="obj in isendmessageobj track by $index">
+                        <div ng-if="obj.align == 'left'">
+                          <send-msg  message="obj">
+                        </div>
+                        <div ng-if="obj.align == 'right'">
+                          <recv-msg ng-if="obj.align == 'right'" message="obj">
+                        </div>
                     </div>
                 </div>
                 <!--
@@ -85,7 +99,7 @@
         list-style-type: none;
         text-align: center;
     }
-
+    /*
     .list-group-item {
         margin-bottom: 10px;
         border-radius: 20px;
@@ -100,6 +114,7 @@
     .list-group-item:last-child {
         border-radius: 20px;
     }
+*/
 
     .scroller {
         overflow-y: scroll;
@@ -108,11 +123,9 @@
     }
 
     .online-users {
-        border: 1px solid black;
     }
 
     .scroller {
-        border: 1px solid black;
     }
 
     #message {
@@ -137,13 +150,11 @@
         margin: 0 auto;
     }
 
-    .user-details {
-        border: 1px solid black;
+    .other-user-details {
         height: 150px;
     }
 
     .user-head {
-        border: 1px solid black;
         height: 100px;
     }
 
@@ -155,4 +166,19 @@
     .nav>li {
         width: 50%;
     }
+
+    #create_chatroom_btn {
+        width: 100%;
+    }
+    #chatrooms > .list-group{
+      margin-top:0px;
+      margin-bottom:0px;
+    }
+    #users > .list-group{
+      margin-top:0px;
+      margin-bottom:0px;
+    }
+    /*div{
+      border:1px solid black;
+    }*/
 </style>
